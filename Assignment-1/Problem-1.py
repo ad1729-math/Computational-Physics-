@@ -73,23 +73,32 @@ for x in X:
     v=(abs(J10[i]-Jl[i]))/(abs(J10[i])+abs(Jl[i]))
     e10.append(v)
 
+#print(e10) #This prints the relative error for all points of the given range
+
 plt.subplot(2,2,1)
 plt.plot(X,J10,'g',label="$j_{10}$ by up method")
 plt.plot(X,X*0,'r')
-#plt.plot(X,sp.spherical_jn(10,X)+0.01,'b', label="Actual $j_{10}$, shifted little bit for distinguishability")
+#plt.plot(X,sp.spherical_jn(10,X)+0.01,'b+', label="Actual $j_{10}$")
 plt.xlim(1,50)
 plt.ylim(-0.5,0.5)
 plt.legend()
+
+
 plt.subplot(2,2,2)
-plt.plot(X,Jl,'r',label="$j_1$ by down method, starting from $j_{50}, j_{49}$")
-#plt.plot(X,sp.spherical_jn(1,X),'g+',label="Actual $j_1$, shifted little bit for distinguishability")
+plt.plot(X,Jl,'r',label="$j_{10}$ by down method, starting from $j_{100}, j_{99}$")
+#plt.plot(X,sp.spherical_jn(10,X),'g+',label="Actual $j_1$")
 plt.plot(X,X*0,'k')
 plt.xlim(0.1,50)
 plt.ylim(-0.3,0.3)
 plt.legend()
+
+
 plt.subplot(2,2,3)
-plt.loglog(X,J10,Jl)
+plt.loglog(X,J10)  
+plt.loglog(X,Jl,"+")
 plt.legend(["log-log plot for up $j_{10}$   ","log-log plot for down $j_{10}$"])
+
+
 plt.subplot(2,2,4)
 plt.loglog(X,e10,'b',label="log-log plot of the error")
 #plt.ylim(-1,1)
