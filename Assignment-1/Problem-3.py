@@ -2,16 +2,15 @@ import numpy as np
 import math as m
 
 
-
 def f(x):
     return m.cos(x)-0.5 
 
 #Finding root using bisection method 
 
 def rootBS(n): #Here, n is the index of the period 2npi to 2(n+1)pi
-    x0,x1=n*m.pi*2, n*m.pi*2+m.pi
-    y0,y1=n*m.pi*2+m.pi, (n+1)*m.pi*2
-    N=60
+    x0,x1=2*n*m.pi, 2*n*m.pi+m.pi
+    y0,y1=2*n*m.pi+m.pi, 2*(n+1)*m.pi
+    N=52
     for i in range(0,N):
        v1=(x0+x1)/2
        v2=(y0+y1)/2
@@ -38,7 +37,7 @@ for n in range(-10,10):
 #Finding roots of the function using Newton-Rhapson method  
 
 
-N1=5
+N1=6
 def f1(x):
     return -m.sin(x)
 
@@ -54,7 +53,7 @@ def rootNR(n):
 #At last we use Secant's method to find the roots
  
 def rootSec(n):
-    N2=8
+    N2=7
     #For the two halfs we choose two pairs of close values of initial seeds (x0,x1) and (y0,y1)
     x0,x1=n*m.pi*2+0.5 ,n*m.pi*2+0.6
     y0,y1=(n+1)*m.pi*2-0.5,(n+1)*m.pi*2-0.6
