@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt 
 
 #Defining the Matrix 
-N=400
+N=1000
 h=1/(N-1)
 
 A1=[1]
@@ -47,7 +47,7 @@ M=L
 Y=U
 n=len(M)
 
-
+#Forward substitution
 
 for i in range(0,n):
     v=M[i][i]
@@ -62,15 +62,19 @@ for i in range(0,n):
         M[j]=Temp
         Y[j]=Y[j]-Y[i]*a
 
-S=[Y[n-1]]
 
-for k in range(n-2,-1,-1):
-    s=Y[k]
-    for j in range(n-1,k,-1):
-        s-=S[n-1-j]*M[k][j]
-    S.append(s) 
+#Backward substitution 
 
-S.reverse()
+for i in range(n-1,-1,-1):
+    for j in range(i-1,-1,-1):
+        a=M[j][i]
+        Temp=[]
+        for k in range(0,n):
+            t=M[j][k]-M[i][k]*a
+            Temp.append(t)
+        M[j]=Temp
+        Y[j]=Y[j]-Y[i]*a
+
 
 #print(np.array(M),Y,S)
 
@@ -79,11 +83,11 @@ def Uact(x):
     
 Err=[]
 for k in range(len(M)):
-    c=abs((S[k]-Uact(k*h))/Uact(k*h))
+    c=abs((Y[k]-Uact(k*h))/Uact(k*h))
     Err.append(c)    
 
 X=np.linspace(0, 1, N)
-plt.plot(X, S,'k+',label="Numerically found value")
+plt.plot(X, Y,'b',label="Numerically found value")
 plt.plot(X, Uact(X),'r',label="$u^{exact}$")
 plt.legend()
 plt.show()
