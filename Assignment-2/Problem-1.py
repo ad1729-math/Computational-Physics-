@@ -79,8 +79,8 @@ for k in range(len(M)):
     c=abs((Y[k]-Uact(k*h))/Uact(k*h))
     Err.append(c)    
 
-#Err_sort=sorted(Err) 
-#print(Err_sort[-2])   
+Err_sort=sorted(Err) 
+print(Err_sort[-2])   
 
 X=np.linspace(0, 1, N)
 plt.plot(X, Y,'k+',label="Numerically found value")
