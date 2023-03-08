@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt 
 
 #Defining the Matrix 
-N=1000
+N=10**4
 h=1/(N-1)
 
 A1=[1]
@@ -49,17 +49,14 @@ n=len(M)
 
 #Forward substitution
 
-for i in range(0,n):
+for i in range(0,n-1):
     v=M[i][i]
     M[i]=[x/v for x in M[i]] 
     Y[i]=Y[i]/v 
-    for j in range(i+1, n):
+    for j in range(i+1, n-1):
         a=M[j][i]
-        Temp=[]
-        for k in range(0,n):
-            t=M[j][k]-M[i][k]*a
-            Temp.append(t)
-        M[j]=Temp
+        for k in range(j-1,j+2):
+            M[j][k]=M[j][k]-M[i][k]*a
         Y[j]=Y[j]-Y[i]*a
 
 
@@ -67,16 +64,12 @@ for i in range(0,n):
 
 for i in range(n-1,-1,-1):
     for j in range(i-1,-1,-1):
-        a=M[j][i]
-        Temp=[]
-        for k in range(0,n):
-            t=M[j][k]-M[i][k]*a
-            Temp.append(t)
-        M[j]=Temp
+        for k in range(j-1,j+2):
+            a=M[j][i]
+            M[j][k]=M[j][k]-M[i][k]*a
         Y[j]=Y[j]-Y[i]*a
 
-
-#print(np.array(M),Y,S)
+#print(np.array(M),Y)
 
 def Uact(x):
     return x*(1-x)*np.exp(x)
@@ -86,8 +79,11 @@ for k in range(len(M)):
     c=abs((Y[k]-Uact(k*h))/Uact(k*h))
     Err.append(c)    
 
+#Err_sort=sorted(Err) 
+#print(Err_sort[-2])   
+
 X=np.linspace(0, 1, N)
-plt.plot(X, Y,'b',label="Numerically found value")
+plt.plot(X, Y,'k+',label="Numerically found value")
 plt.plot(X, Uact(X),'r',label="$u^{exact}$")
 plt.legend()
 plt.show()
