@@ -48,7 +48,6 @@ for i in range(1,n-1):
     M[i+1][1]-=M[i][2]*a
     Y[i+1]-=Y[i]*a
 
-print(np.array(M))
 #Backward substitution 
 
 M[n-2][2]=0
@@ -57,8 +56,6 @@ for i in range(n-2,-1,-1):
     a=M[i-1][2]
     M[i-1][2]-=M[i][1]*a
     Y[i-1]-=Y[i]*a
-
-print(np.array(M))
 
 
 #print(np.array(M),Y)
