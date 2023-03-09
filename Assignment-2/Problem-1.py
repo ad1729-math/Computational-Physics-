@@ -34,7 +34,7 @@ M=L
 Y=U
 n=len(M)
 
-#Forward substitution
+#Backward substitution
 M[1][0]-=M[0][0]
 v=M[1][1]
 M[1]=[x/v for x in M[1]]
@@ -48,7 +48,7 @@ for i in range(1,n-1):
     M[i+1][1]-=M[i][2]*a
     Y[i+1]-=Y[i]*a
 
-#Backward substitution 
+#Forward substitution 
 
 M[n-2][2]=0
 
