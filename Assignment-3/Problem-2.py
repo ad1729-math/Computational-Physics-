@@ -1,7 +1,20 @@
 #Integration using differernt method
 import numpy as np 
 import math as m
-from scipy.special import roots_legendre, eval_legendre
+#from Gauss_Legendre import GL
+
+W10=np.loadtxt("W_10.dat",unpack=True)
+R10=np.loadtxt("R_10.dat",unpack=True)
+W40=np.loadtxt("W_40.dat",unpack=True)
+R40=np.loadtxt("R_40.dat",unpack=True)
+W100=np.loadtxt("W_100.dat",unpack=True)
+R100=np.loadtxt("R_100.dat",unpack=True)
+W1000=np.loadtxt("W_1000.dat",unpack=True)
+R1000=np.loadtxt("R_1000.dat",unpack=True)
+
+N=[10,40,100,1000]
+W=[W10,W40,W100,W1000]
+R=[R10,R40,R100,R1000]
 
 def Trap(f,a,b,n):
     h=abs(b-a)/n
@@ -20,20 +33,17 @@ def Simp(f,a,b,n):  #n is even
     sum+=f(b-h)*4*h/3
     return sum
 
-def GL(f, a, b, n):  
-    def F(y):
-        x=(b-a)/2*y+(b+a)/2 
-        return f(x)*(b-a)/2
-
-    T=roots_legendre(n)
-    sum=0
-    for i in range(0,n):
-        sum+=F(T[0][i])*T[1][i]
-    return sum
-
-
-
-N=[10,40,100,1000]
+def GL(f, a, b, n): 
+    if n in N:
+       def F(y):
+           x=0.5*((b-a)*y+(b+a))
+           return f(x)*(b-a)/2
+       s=0
+       v=N.index(n)
+       for k in range(n):
+           s+=W[v][k]*F(R[v][k])
+       return s
+           
 
 #First integration using three methods
 
@@ -42,7 +52,7 @@ a,b=0,3
 def F1(x):
     return 1/(2+x**2)
 
-I1_Trap, I1_Simp, I1_GL=[],[],[]
+I1_Trap, I1_Simp,I1_GL=[],[],[]
 
 for n in N:
     I1_Trap.append(Trap(F1,a,b,n))
@@ -50,11 +60,14 @@ for n in N:
     I1_GL.append(GL(F1,a,b,n))
 
 
-#print(I1_Trap,I1_Simp,I1_GL)
+# print("The first integration by three different methods are")
+# print("Trapezoida method",I1_Trap)
+# print("Simpson's method",I1_Simp)
+# print("Gauss-Legendre method",I1_GL)
 
 #Second integration using three methods
 
-e=10**-5 #Offset term to remove singular point
+e=10**-6 #Offset term to remove singular point
 a,b=0,1-e
 
 
@@ -90,6 +103,7 @@ for n in N:
     I2_Simp.append(Simp(PxS,a,b,n))
     I2_GL.append(GL(PxGL,a,b,n))
 
+print("The second integration found by three different methods")
 print("Trapezoidal method",I2_Trap)
 print("Simpson method",I2_Simp)
 print("Gauss-Legendre method",I2_GL)
