@@ -1,0 +1,73 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage[dvipsnames]{xcolor} 
+\usepackage{amsmath} 
+\usepackage{hyperref}
+\begin{document} 
+\section*{\centering Comuptational Physics Assignment 3}
+\noindent
+{\color{RubineRed} \rule{\linewidth}{0.5mm}}
+\vspace{0.5cm} 
+
+Name: Alapan Das (DTP, I-PhD)\\
+
+\href{https://github.com/ad1729-math/Computational-Physics-/tree/main/Assignment-3}{\textcolor{blue}{Link to github folder}}\\
+
+\textbf{Problem-1}:
+\\
+
+The Hgedorn density funtion is $\rho(m)=\frac{A}{(m^2+m_0^2)^{\frac{5}{4}}}e^{\frac{m}{T_H}}$ ,$m_0=0.5GeV$
+
+\vspace{1cm}
+
+
+\textbf{Problem-2:}
+In this problem we ae asked to find the integration of the following functions using Trapezoidal, Simpson and Gauss-Legendre method for step sizes $N=[10,40,100,1000]$:\\
+
+1) $f_1(x)=\int_{0}^3 \frac{1}{2+x^2} dx$. We obtain the values of this integration for different mesh sizes as follows:\\
+
+{\tiny
+\begin{center}
+	\begin{tabular}{|c|c|c|c|c|}
+		\hline
+		N & 10&40 &100 &1000\\
+		\hline
+       	Trapezoidal &0.7988611432469059& 0.7992094152549231& 0.7992289385744493& 0.7992326203539085\\
+       	\hline
+     	Simpson &0.7992308495017938& 0.7992326514965091& 0.7992326573890947& 0.7992326575439722\\
+     	\hline
+     	Gauss-Legendre method &0.7992326580698834& 0.7992326575439875& 0.7992326575439873& 0.7992326546635022\\
+		\hline
+	\end{tabular}
+\end{center}
+}%end of group
+\vspace{0.5cm}
+2) $f_2(x)=\int_{0}^1\int_{0}^3 \frac{1}{1-xy} dxdy$. We obtain the values of this integration for different mesh sizes as follows:\\
+
+{\tiny
+\begin{center}
+	\begin{tabular}{|c|c|c|c|c|}
+		\hline
+		N & 10&40 &100 &1000\\
+        \hline
+        Trapezoidal method &2501.58494166525& 157.88166241969537& 26.639790075106234& 1.8944238227847563\\
+        \hline
+        Simpson method &1112.6982317722027& 71.07534047988044& 12.750460371583397& 1.7554809841888417\\
+        \hline
+         Gauss-Legendre method&1.6376806808421946& 1.6444372394039704& 1.644844622045519& 1.644919785622776\\
+		\hline
+	\end{tabular}
+\end{center}
+}} %end of group
+
+the analytic value of this integral is $\frac{\pi^2}{6}$ which we can show by expanding the integrand in infinite series ($xy<1$) which upon integration turns out to be $\zeta(2)$.\\
+
+We can see that Gauss-Legendre gives the most accurate value of the integration. As the integrand is $\frac{1}{1-xy}$ and the domain is $(x,y)\in[0,1]\times[0,1]$. So, at the end points, i.e $x=y=1$ the integrand has division by zero error. To get around this problem in the numerical integration we change the domain to $(x,y)\in[0,1-e]\times[0,1]$., where $e=10^{-7}$ is an offset. \\
+
+    In the Gauss-Legendre.py file we define Legendre funtion of order $n$ i.e $L_n(x)$ using recurrence relation. Then we find the roots of this polynomial using Newton-Rahpson method
+starting from the approximate roots $\xi_{n,k}\approx(1-\frac{1}{8n^2}+\frac{1}{8n^3})\cos\left(\pi\frac{4k-1}{4n+2}\right)$ where $k=1,2,...,n$ (This result is due to Fransesco Tricomi). We further improve the value by using Newton-Rahpson method, say for $10$ times. The weights are $w_{n,i}=\frac{2}{(1-x_{i,n}^2)[L'_n(x_{i,n})^2]}$, $x_{i,n}$ are roots of $L_n$. So, we save the weights and roots for of  $L_n$ for $n=10,40,100,1000$ in separate .dat files. We call this files in Problem-2.py file to use them to calculate Gauss-Legendre quadrature method.
+
+
+\end{document}
