@@ -98,24 +98,25 @@ def Chi_M(A,TH):
 # a_b=np.linspace(a1b,a2b,T)
 # th_b=np.linspace(b1b,b2b,T)
 
-# ChiM=[]
+# ChiB=[]
 # for A in a_b:
-#     ChiM_A=[]
+#     ChiB_A=[]
 #     for TH in th_b:
-#         ChiM_A.append(Chi_M(A,TH))
-#     ChiM.append(ChiM_A)
+#         ChiB_A.append(Chi_B(A,TH))
+#     ChiB.append(ChiB_A)
 
 # LM=[]
 # IM=[]
 # for i in range(T):
-#     s=np.sort(ChiM[i])[0]
-#     i=ChiM[i].index(s)
+#     s=np.sort(ChiB[i])[0]
+#     i=ChiB[i].index(s)
 #     IM.append(i)
 #     LM.append(s)
 
 # L_min=np.sort(LM)[0]
 # Im=LM.index(L_min)
 # Jm=IM[Im]
+
 # Am_B=a1b+(a2b-a1b)/T*Im
 # Th_B=b1b+(b2b-b1b)/T*Jm
 
@@ -151,16 +152,16 @@ Jm=IM[Im]
 Am_M=a1m+(a2m-a1m)/T*Im
 Th_M=b1m+(b2m-b1m)/T*Jm
 
-print("The fitted values for Baryon and Mesons are respectively",[Am_M,Th_M])
+# print("The fitted values for Baryon and Mesons are respectively",[Am_B,Th_B])
 
 x=np.linspace(0.7,2,100)
-# plt.subplot(2,1,1)
-# plt.plot(x,Nth(x,Am_B,Th_B),'g',label="Theoretical,Baryons")
-# plt.plot(BM,Ne_B(BM),'ko')
+# #plt.subplot(2,1,1)
+# plt.plot(x,Nth(x,0.2,0.25),'g',label="Theoretical,Baryons")
+# plt.plot(BM,Ne_B(BM),'ko',label="Data points")
 # plt.legend()
 
 # plt.subplot(2,1,2)
 plt.plot(x ,Nth(x,Am_M,Th_M),'g',label="Theoretical,Meson")
-plt.plot(MM,Ne_M(MM),'ko')
+plt.plot(MM,Ne_M(MM),'ko',label="Data points")
 plt.legend()
 plt.show()
