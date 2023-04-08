@@ -1,7 +1,7 @@
-#Integration using differernt method
+#Integration using differernt methods
 import numpy as np 
 import math as m
-#from Gauss_Legendre import GL
+from Gauss_Legendre import GL
 
 W10=np.loadtxt("W_10.dat",unpack=True)
 R10=np.loadtxt("R_10.dat",unpack=True)
@@ -33,7 +33,7 @@ def Simp(f,a,b,n):  #n is even
     sum+=f(b-h)*4*h/3
     return sum
 
-def GL(f, a, b, n): 
+def GL_(f, a, b, n): 
     if n in N:
        def F(y):
            x=0.5*((b-a)*y+(b+a))
@@ -57,13 +57,13 @@ I1_Trap, I1_Simp,I1_GL=[],[],[]
 for n in N:
     I1_Trap.append(Trap(F1,a,b,n))
     I1_Simp.append(Simp(F1,a,b,n))
-    I1_GL.append(GL(F1,a,b,n))
+    I1_GL.append(GL_(F1,a,b,n))
 
 
-# print("The first integration by three different methods are")
-# print("Trapezoida method",I1_Trap)
-# print("Simpson's method",I1_Simp)
-# print("Gauss-Legendre method",I1_GL)
+print("The first integration by three different methods are")
+print("Trapezoida method",I1_Trap)
+print("Simpson's method",I1_Simp)
+print("Gauss-Legendre method",I1_GL)
 
 #Second integration using three methods
 
@@ -87,7 +87,7 @@ def Px_simp(x,n):
 def Px_GL(x,n):
     def f(y):
         return F2(x,y)
-    return GL(f,0,1,n)
+    return GL_(f,0,1,n)
 
 I2_Trap,I2_Simp,I2_GL=[],[],[]
 
@@ -101,7 +101,7 @@ for n in N:
     
     I2_Trap.append(Trap(PxT,a,b,n))
     I2_Simp.append(Simp(PxS,a,b,n))
-    I2_GL.append(GL(PxGL,a,b,n))
+    I2_GL.append(GL_(PxGL,a,b,n))
 
 print("The second integration found by three different methods")
 print("Trapezoidal method",I2_Trap)
