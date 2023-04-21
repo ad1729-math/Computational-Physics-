@@ -64,18 +64,18 @@ def Exp(N,dt):
     return T,Dec,Res
 
 
-T,Dec,Res=Exp(N,dt)
-plt.subplot(2,1,1)
-plt.plot(T,Dec,'ro',label="Number of decays")
-plt.xlabel("$t$(Time)--->")
-plt.ylabel("Number of decays")
-plt.legend()
-plt.subplot(2,1,2)
-plt.plot(T,Res,'bo',label="Number of esidues")
-plt.xlabel("$t$(Time)--->")
-plt.ylabel("Number of particles left--->")
-plt.legend()
-plt.show()
+# T,Dec,Res=Exp(N,dt)
+# plt.subplot(2,1,1)
+# plt.plot(T,Dec,'ro',label="Number of decays")
+# plt.xlabel("$t$(Time)--->")
+# plt.ylabel("Number of decays")
+# plt.legend()
+# plt.subplot(2,1,2)
+# plt.plot(T,Res,'bo',label="Number of esidues")
+# plt.xlabel("$t$(Time)--->")
+# plt.ylabel("Number of particles left--->")
+# plt.legend()
+# plt.show()
 
 
 #Ensemble avergae at time t
@@ -96,4 +96,15 @@ def En_av(t,N0,M):
         s+=N(t,N0)[1]
     return s/M 
 
-print(En_av(1,1000,100))
+# print(En_av(1,1000,1000))
+T=np.linspace(0,1,100)
+N_av=[]
+for t in T:
+    N0,M=1000,1000
+    N_av.append(En_av(t,N0,M))
+
+plt.plot(T,N_av,'ro')
+plt.xlabel("Time--->")
+plt.ylabel("\langle N(t) \rangle")
+plt.show()
+
