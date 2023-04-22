@@ -6,7 +6,7 @@ k,M=1,1
 t0,x0,x10=0,1,0
 tf=12*m.pi
 E0=0.5*(M*x10**2+k*x0**2)
-N=10**4
+N=10**3
 
 def f(t,x,x1):
     return -k/M*x
@@ -25,7 +25,7 @@ def RK4(f,t,x,x1,h):
     t+=h
     return t,x,x1
 
-def Deq(f,t0,tf,x0,x10):
+def Deq(f,t0,tf,x0,x10): #This function returns the values of x(t) upto t_f.
     T,X,X1=[],[],[]
     h=(tf-t0)/N
     for i in range(N):
@@ -36,36 +36,30 @@ def Deq(f,t0,tf,x0,x10):
         t0,x0,x10=RK4(f,t0,x0,x10,h)
     return T,X,X1
 
-def E(T):
+def E(T): #This returns the value/ listed value of energy and delta E as a list.
     if isinstance (T,list):
         X,X1=Deq(f,t0,tf,x0,x10)[1],Deq(f,t0,tf,x0,x10)[2]
         L=[]
+        dL=[]
         for i in range(len(T)):
             x,x1=X[i],X1[i]
             L.append(0.5*(M*x1**2+k*x**2))
-        return L
+            dL.append(0.5*(M*x1**2+k*x**2)-E0)
+        return L,dL
     else:
         i=int((T-t0)/(tf-t0)*N)
         x,x1=Deq(f,t0,tf,x0,x10)[1][i],Deq(f,t0,tf,x0,x10)[2][i]
-        return 0.5*(M*x1**2+k*x**2)
-
-def DE(T):
-    if isinstance(T, list):
-        L=[]
-        for t in T:
-            L.append(E(t)-E0)
-        return L
-    else:
-        return E(t)-E0
+        E=0.5*(M*x1**2+k*x**2)
+        return E,E-E0
               
 
-# plt.subplot(2,1,1)
-# plt.plot(Deq(f,t0,tf,x0,x10)[0],Deq(f,t0,tf,x0,x10)[1],'r',label="$x(t)$")
-# plt.xlabel("$t$ (Time) --->")
-# plt.ylabel("$x(t)$--->")
-# plt.legend()
+# # plt.subplot(2,1,1)
+# # plt.plot(Deq(f,t0,tf,x0,x10)[0],Deq(f,t0,tf,x0,x10)[1],'r',label="$x(t)$") #Plots x(t) versus t
+# # plt.xlabel("$t$ (Time) --->")
+# # plt.ylabel("$x(t)$--->")
+# # plt.legend()
 # plt.subplot(2,1,2)
-plt.plot(Deq(f,t0,tf,x0,x10)[0],E(Deq(f,t0,tf,x0,x10)[0]),'g',label="$\Delta(t)$")
+plt.plot(Deq(f,t0,tf,x0,x10)[0],E(Deq(f,t0,tf,x0,x10)[0])[1],'g',label="$\Delta(t)$") #Plots Delta E versus t
 plt.xlabel("$t$ (Time) --->")
 plt.ylabel("$\Delta(t)$--->")
 plt.legend()

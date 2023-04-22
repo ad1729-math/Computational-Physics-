@@ -64,7 +64,8 @@ def Exp(N,dt):
     return T,Dec,Res
 
 
-# T,Dec,Res=Exp(N,dt)
+T,Dec,Res=Exp(N,dt)
+
 # plt.subplot(2,1,1)
 # plt.plot(T,Dec,'ro',label="Number of decays")
 # plt.xlabel("$t$(Time)--->")
@@ -75,36 +76,41 @@ def Exp(N,dt):
 # plt.xlabel("$t$(Time)--->")
 # plt.ylabel("Number of particles left--->")
 # plt.legend()
-# plt.show()
 
 
 #Ensemble avergae at time t
-def N(t,N0):
-    L=Exp(N0,dt)
-    Dec,Res=L[1],L[2]
-    i=int(t/dt)
-    if i<=len(Dec):
-       dN_t,N_t=Dec[i],Res[i]
-    else:
-       dN_t,N_t=0,0     
-    return dN_t,N_t 
+M=1000 #Number of ensembles
+N0=10 #Number of initital nucleuses
+En=[]
+for i in range(M):
+    En.append(Exp(N0,dt)[2])
+
+En_av=[]
+N_ln=[]
+Sl=[]
+T=np.arange(0,2,dt)
+for i in range(len(T)):
+    s=0
+    for k in range(M):
+        s+=En[k][i]
+    av=s/M
+    En_av.append(av)
+    N_ln.append(np.log(av))
+
+for j in range(len(T)-1):
+    v=(En_av[j+1]-En_av[j])/(dt*N0)
+    Sl.append(v)
+Sl.append(0)
 
 
-def En_av(t,N0,M):
-    s=0 
-    for i in range(M):
-        s+=N(t,N0)[1]
-    return s/M 
-
-# print(En_av(1,1000,1000))
-T=np.linspace(0,1,100)
-N_av=[]
-for t in T:
-    N0,M=1000,1000
-    N_av.append(En_av(t,N0,M))
-
-plt.plot(T,N_av,'ro')
-plt.xlabel("Time--->")
-plt.ylabel("\langle N(t) \rangle")
+# plt.subplot(2,1,1)
+# plt.plot(T,N_ln,"ro",label="Log Ensemble average, $N_0$=1000")
+# plt.xlabel("$t$(Time)--->")
+# plt.ylabel("$\ln(N(t))$ (Log Ensemble average)--->")
+# plt.legend()
+# plt.subplot(2,1,2)
+plt.plot(T,Sl,'g')
+plt.xlabel("$t$ (Time)--->")
+plt.ylabel("Slope--->")
 plt.show()
 
