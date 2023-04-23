@@ -102,6 +102,13 @@ for j in range(len(T)-1):
     Sl.append(v)
 Sl.append(0)
 
+#Determining the slope
+s=0
+for i in range(len(T)):
+    s+=(N_ln[i]-N_ln[-1])*dt 
+
+m=2*s/(T[-1]**2)
+print("The slope of the curve is",-m)
 
 # plt.subplot(2,1,1)
 # plt.plot(T,N_ln,"ro",label="Log Ensemble average, $N_0$=1000")
@@ -109,8 +116,9 @@ Sl.append(0)
 # plt.ylabel("$\ln(N(t))$ (Log Ensemble average)--->")
 # plt.legend()
 # plt.subplot(2,1,2)
-plt.plot(T,Sl,'g')
-plt.xlabel("$t$ (Time)--->")
-plt.ylabel("Slope--->")
-plt.show()
+# plt.plot(T,Sl,'g')
+# plt.xlabel("$t$ (Time)--->")
+# plt.ylabel("Slope--->")
+# plt.show()
+
 
