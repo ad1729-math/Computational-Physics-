@@ -80,7 +80,7 @@ plt.legend()
 
 #Ensemble avergae at time t
 M=1000 #Number of ensembles
-N0=10 #Number of initital nucleuses
+N0=1000 #Number of initital nucleuses
 En=[]
 for i in range(M):
     En.append(Exp(N0,dt)[2])
@@ -88,7 +88,7 @@ for i in range(M):
 En_av=[]
 N_ln=[]
 Sl=[]
-T=np.arange(0,2,dt)
+T=np.arange(0,10,dt)
 for i in range(len(T)):
     s=0
     for k in range(M):
