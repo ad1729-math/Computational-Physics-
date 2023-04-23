@@ -66,21 +66,21 @@ def Exp(N,dt):
 
 T,Dec,Res=Exp(N,dt)
 
-plt.subplot(2,1,1)
-plt.plot(T,Dec,'ro',label="Number of decays")
-plt.xlabel("$t$(Time)--->")
-plt.ylabel("Number of decays")
-plt.legend()
-plt.subplot(2,1,2)
-plt.plot(T,Res,'bo',label="Number of esidues")
-plt.xlabel("$t$(Time)--->")
-plt.ylabel("Number of particles left--->")
-plt.legend()
+# plt.subplot(2,1,1)
+# plt.plot(T,Dec,'ro',label="Number of decays")
+# plt.xlabel("$t$(Time)--->")
+# plt.ylabel("Number of decays")
+# plt.legend()
+# plt.subplot(2,1,2)
+# plt.plot(T,Res,'bo',label="Number of esidues")
+# plt.xlabel("$t$(Time)--->")
+# plt.ylabel("Number of particles left--->")
+# plt.legend()
 
 
 #Ensemble avergae at time t
 M=1000 #Number of ensembles
-N0=1000 #Number of initital nucleuses
+N0=10 #Number of initital nucleuses
 En=[]
 for i in range(M):
     En.append(Exp(N0,dt)[2])
@@ -88,7 +88,7 @@ for i in range(M):
 En_av=[]
 N_ln=[]
 Sl=[]
-T=np.arange(0,10,dt)
+T=np.arange(0,2,dt)
 for i in range(len(T)):
     s=0
     for k in range(M):
@@ -103,12 +103,12 @@ for j in range(len(T)-1):
 Sl.append(0)
 
 
-plt.subplot(2,1,1)
-plt.plot(T,N_ln,"ro",label="Log Ensemble average, $N_0$=1000")
-plt.xlabel("$t$(Time)--->")
-plt.ylabel("$\ln(N(t))$ (Log Ensemble average)--->")
-plt.legend()
-plt.subplot(2,1,2)
+# plt.subplot(2,1,1)
+# plt.plot(T,N_ln,"ro",label="Log Ensemble average, $N_0$=1000")
+# plt.xlabel("$t$(Time)--->")
+# plt.ylabel("$\ln(N(t))$ (Log Ensemble average)--->")
+# plt.legend()
+# plt.subplot(2,1,2)
 plt.plot(T,Sl,'g')
 plt.xlabel("$t$ (Time)--->")
 plt.ylabel("Slope--->")

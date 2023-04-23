@@ -6,7 +6,7 @@ k,M=1,1
 t0,x0,x10=0,1,0
 tf=12*m.pi
 E0=0.5*(M*x10**2+k*x0**2)
-N=10**3
+N=10**4
 
 def f(t,x,x1):
     return -k/M*x
@@ -44,25 +44,25 @@ def E(T): #This returns the value/ listed value of energy and delta E as a list.
         for i in range(len(T)):
             x,x1=X[i],X1[i]
             L.append(0.5*(M*x1**2+k*x**2))
-            dL.append(0.5*(M*x1**2+k*x**2)-E0)
+            dL.append(E0-0.5*(M*x1**2+k*x**2))
         return L,dL
     else:
         i=int((T-t0)/(tf-t0)*N)
         x,x1=Deq(f,t0,tf,x0,x10)[1][i],Deq(f,t0,tf,x0,x10)[2][i]
         E=0.5*(M*x1**2+k*x**2)
-        return E,E-E0
+        return E,E0-E
               
 
-# # plt.subplot(2,1,1)
-# # plt.plot(Deq(f,t0,tf,x0,x10)[0],Deq(f,t0,tf,x0,x10)[1],'r',label="$x(t)$") #Plots x(t) versus t
-# # plt.xlabel("$t$ (Time) --->")
-# # plt.ylabel("$x(t)$--->")
-# # plt.legend()
-# plt.subplot(2,1,2)
-plt.plot(Deq(f,t0,tf,x0,x10)[0],E(Deq(f,t0,tf,x0,x10)[0])[1],'g',label="$\Delta(t)$") #Plots Delta E versus t
+# plt.subplot(2,1,1)
+plt.plot(Deq(f,t0,tf,x0,x10)[0],Deq(f,t0,tf,x0,x10)[1],'r',label="$x(t)$") #Plots x(t) versus t
 plt.xlabel("$t$ (Time) --->")
-plt.ylabel("$\Delta(t)$--->")
+plt.ylabel("$x(t)$--->")
 plt.legend()
+# # plt.subplot(2,1,2)
+# plt.plot(Deq(f,t0,tf,x0,x10)[0],E(Deq(f,t0,tf,x0,x10)[0])[1],'g',label="$\Delta(t)$") #Plots Delta E versus t
+# plt.xlabel("$t$ (Time) --->")
+# plt.ylabel("$\Delta(t)$--->")
+# plt.legend()
 plt.show()
 
 

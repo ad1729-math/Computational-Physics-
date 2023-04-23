@@ -1,7 +1,7 @@
 import numpy as np 
 
 #Brute Force Monte Carlo Method for evaluating integration
-N=10**7
+N=[10**3,10**4,10**5]
 
 def f(x):
     return np.exp(-x**2)
@@ -14,8 +14,11 @@ def BF_M(f,a,b,N):
         y=np.random.rand()
         s+=F(y)
     return s/N
-
-print("The Integration of the funtion found using Brute-Force Monte Carlo method is",BF_M(f,0,1,N))
+L=[]
+for n in N:
+    L.append(BF_M(f,0,1,n))
+    
+print("The Integration of the funtion found using Brute-Force Monte Carlo method is",L)
 
 #Improved Monte Carlo Integration 
 N=[10**3,10**4,10**5]
