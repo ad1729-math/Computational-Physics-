@@ -63,7 +63,7 @@ for i in range(M):
     u10=A*k 
     WF_r=U(r,0,0,u10,E,V)[2][-1]
     if WF_r<10**(-19):
-        print(E/MeV)
+        print("Eigenvalue using shooting method is",E/MeV)
         break
     else:
         continue 
@@ -106,7 +106,7 @@ for i in range(M):
     u10=A*k1
     WF_r=U(0.1*a,10*a,0,u10,E,V1)[2][-1]
     if WF_r<1:
-        print(E/MeV)
+        print("Eigenvalue using shooting method is",E/MeV)
         break
     else:
         continue 
