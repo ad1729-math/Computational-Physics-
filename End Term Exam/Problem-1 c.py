@@ -53,21 +53,30 @@ def U(r,r0,u0,u10,E,V):
 
 A=1#This is the amplitude of the wavefunction the value of which doesn't 
 # matter. Derivative of u at r=0 is, u'(0)=Ak.
-M=1000
-E0=-V0*0.5
-e=(0-E0)/M
-r=5*a
-for i in range(M):
-    E=E0+e*i
-    k=np.sqrt(2*m*(V0+E))/h
-    u10=A*k 
-    WF_r=U(r,0,0,u10,E,V)[2][-1]
-    if abs(WF_r<10**(-18)):
-        print(E/MeV)
-        break
-    else:
-        continue 
+# M=1000
+# E0=-V0*0.5
+# e=(0-E0)/M
+# r=10*a
+# for i in range(M):
+#     E=E0+e*i
+#     k=np.sqrt(2*m*(V0+E))/h
+#     u10=A*k 
+#     WF_r=U(r,0,0,u10,E,V)[2][-1]
+#     if WF_r<10**(-19):
+#         print(E/MeV)
+#         break
+#     else:
+#         continue 
 
+# E0=-15.75*MeV
+# k=np.sqrt(2*m*(V0+E0))/h
+# L=U(5*a,0,0,k*A,E0,V)
+# R,WF=L[0],L[1]
+# # plt.plot(R,WF,'b',label="Energy=-15.75 MeV")
+# # plt.xlabel("r--->")
+# # plt.ylabel("$u(r)$--->")
+# # plt.legend()
+# # plt.show()
 
 def V1(r):
     a,b,c=1,4,7
@@ -76,13 +85,16 @@ def V1(r):
     return (Va*np.exp(-a*x)+Vb*np.exp(-b*x)+Vc*np.exp(-c*x))/x
 
 A=1
-E0=-10*MeV
 V10=60*MeV
-# k=np.sqrt(2*m*(V10+E0))/h
-# L=U(0.2*a,5*a,0,k*A,E0,V1)
-# R,WF=L[0],L[1]
-# plt.plot(R,WF,'r')
-# plt.show()
+E10=-5.94*MeV
+k1=np.sqrt(2*m*(-E10))/h
+L=U(0.2*a,5*a,0,-k1*A,E10,V1)
+R,WF=L[0],L[1]
+plt.plot(R,WF,'b',label="Energy=-5.939.. MeV")
+plt.xlabel("Energy--->")
+plt.ylabel("$u(r)$--->")
+plt.legend()
+plt.show()
 
     
 M=1000
@@ -90,10 +102,10 @@ E0=-V10*0.5
 e=(0-E0)/M
 for i in range(M):
     E=E0+e*i
-    k=np.sqrt(2*m*(V0+E))/h
-    u10=A*k 
-    WF_r=U(0.2*a,5*a,0,u10,E,V1)[2][-1]
-    if abs(WF_r<10**(0)):
+    k1=np.sqrt(2*m*(-E))/h
+    u10=A*k1
+    WF_r=U(0.1*a,10*a,0,u10,E,V1)[2][-1]
+    if WF_r<1:
         print(E/MeV)
         break
     else:
