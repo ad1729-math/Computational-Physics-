@@ -28,10 +28,12 @@ def Eigen(V0):
         return -k1
 
 
-    # E=np.linspace(-V0,0,1000)
-    # plt.plot(E,fl(E),'r')
-    # plt.plot(E,fr(E),'g')
-    # plt.show()
+    E=np.linspace(-V0,0,1000)
+    plt.plot(E,fl(E),'r',label="$f_l(E)$")
+    plt.plot(E,fr(E),'g',label="$f_r(E)$")
+    plt.xlabel("Energy--->")
+    plt.legend()
+    plt.show()
 
 #Finding the eigenvalue: From the plot we can see that there is only ine eigenvalue for this particular case which we find using Newton-Rhapson method
     b=np.sqrt(2*m*V0)/h
@@ -47,9 +49,13 @@ def Eigen(V0):
         k0-=(f(k0))/f1(k0)
 
     E0=-(h)**2/(2*m)*(b**2-k0**2)
-    # K=np.linspace(0,b,100)
-    # plt.plot(K,f(K),'r')
-    # plt.plot(K,K*0,'g')
+    K=np.linspace(0,b,100)
+    plt.plot(K,f(K),'r',label="$f(k)$--->")
+    plt.plot(K,K*0,'g',label="0")
+    plt.xlabel("$k$--->")
+    plt.legend()
+    plt.show()
+
     plt.show()
     return E0/MeV
 

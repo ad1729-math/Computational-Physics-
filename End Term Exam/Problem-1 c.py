@@ -45,15 +45,62 @@ def U(r,r0,u0,u10,E,V):
     for i in range(N):
         oput=RK4(f,r0,u0,u10,h,E,V)
         r0,u0,u10=oput[0],oput[1],oput[2]
-        R.append(r)
+        R.append(r0)
         WF.append(u0)
         WFS.append(u10)
     return R,WF,WFS
 
-R,WF=U(5*a,0,0,10**15,-V0*0.2,V)[0],U(0.5*a,0,0,10**15,-V0*0.2,V)[1]
-plt.plot(R,WF,'r')
-plt.ylim(0,10**-3)
-plt.show()
+
+A=1#This is the amplitude of the wavefunction the value of which doesn't 
+# matter. Derivative of u at r=0 is, u'(0)=Ak.
+M=1000
+E0=-V0*0.5
+e=(0-E0)/M
+r=5*a
+for i in range(M):
+    E=E0+e*i
+    k=np.sqrt(2*m*(V0+E))/h
+    u10=A*k 
+    WF_r=U(r,0,0,u10,E,V)[2][-1]
+    if abs(WF_r<10**(-18)):
+        print(E/MeV)
+        break
+    else:
+        continue 
+
+
+def V1(r):
+    a,b,c=1,4,7
+    Va,Vb,Vc=-10.463*MeV,-1650.6*MeV,6484.3*MeV
+    x=0.7/fm*r
+    return (Va*np.exp(-a*x)+Vb*np.exp(-b*x)+Vc*np.exp(-c*x))/x
+
+A=1
+E0=-10*MeV
+V10=60*MeV
+# k=np.sqrt(2*m*(V10+E0))/h
+# L=U(0.2*a,5*a,0,k*A,E0,V1)
+# R,WF=L[0],L[1]
+# plt.plot(R,WF,'r')
+# plt.show()
+
+    
+M=1000
+E0=-V10*0.5
+e=(0-E0)/M
+for i in range(M):
+    E=E0+e*i
+    k=np.sqrt(2*m*(V0+E))/h
+    u10=A*k 
+    WF_r=U(0.2*a,5*a,0,u10,E,V1)[2][-1]
+    if abs(WF_r<10**(0)):
+        print(E/MeV)
+        break
+    else:
+        continue 
+
+
+
 
 
 

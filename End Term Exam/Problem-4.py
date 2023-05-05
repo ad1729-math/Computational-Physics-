@@ -1,13 +1,13 @@
 import numpy as np 
 import math as m 
-import numpy.polynomial.legendre as legendre
+#import numpy.polynomial.legendre as legendre
 import numpy.random as random
 
 N=100
-# R=np.loadtxt("R_100.dat", unpack=True)
-# W=np.loadtxt("W_100.dat", unpack=True)
+R=np.loadtxt("R_100.dat", unpack=True)
+W=np.loadtxt("W_100.dat", unpack=True)
 
-R,W=legendre.leggauss(N)
+# R,W=legendre.leggauss(N)
 
 def GL(f,a,b): 
     def F(y):
@@ -65,3 +65,19 @@ print("The value of the integration using Brute force Monte caarlo method is",I)
 
 #Importance Sampling
 
+A=2/(1-np.exp(-2))
+
+def p(x,y1,y2):
+    return A**2*np.exp(-2*(y1+y2))
+
+def y(x):
+    return -0.5*np.log(1-2*x/A)
+
+s=0
+for i in range(N1):
+    for j in range(N2):
+        for k in range(Nx):           
+                r10,r20,x0=random.rand(), random.rand(), random.rand()
+                s+=G(x0,y(r10),y(r20))/p(x0,y(r10),y(r20)) 
+        
+print("The value of the integral using Importance sampling is",s*8*m.pi**2/(N1*N2*Nx))
