@@ -72,11 +72,11 @@ E0=-15.75*MeV
 k=np.sqrt(2*m*(V0+E0))/h
 L=U(5*a,0,0,k*A,E0,V)
 R,WF=L[0],L[1]
-# plt.plot(R,WF,'b',label="Energy=-15.75 MeV")
-# plt.xlabel("r--->")
-# plt.ylabel("$u(r)$--->")
-# plt.legend()
-# plt.show()
+plt.plot(R,WF,'b',label="Energy=-15.75 MeV")
+plt.xlabel("r--->")
+plt.ylabel("$u(r)$--->")
+plt.legend()
+plt.show()
 
 def V1(r):
     a,b,c=1,4,7
