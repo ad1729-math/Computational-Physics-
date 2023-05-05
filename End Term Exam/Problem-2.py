@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 m,g,l=1,1,1
 Mesh=[100,1000,10000]
-v=5
+v=1
 A=1.2
 w,v1=2/3,1/2
 Tp=2*math.pi/w
