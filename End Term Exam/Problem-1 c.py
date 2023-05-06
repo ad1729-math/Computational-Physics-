@@ -102,30 +102,30 @@ def V1(r):
 
 A=1
 V10=60*MeV
-# E10=-5.94*MeV
-# k1=np.sqrt(2*m*(-E10))/h
-# L=U(0.2*a,5*a,0,-k1*A,E10,V1)
-# R,WF=L[0],L[1]
-# plt.plot(R,WF,'b',label="Energy=-5.939.. MeV")
-# plt.xlabel("Energy--->")
-# plt.ylabel("$u(r)$--->")
-# plt.legend()
-# plt.show()
+E10=-5.94*MeV
+k1=np.sqrt(2*m*(-E10))/h
+L=U(0.2*a,5*a,0,-k1*A,E10,V1)
+R,WF=L[0],L[1]
+plt.plot(R,WF,'b',label="Energy=-5.939.. MeV")
+plt.xlabel("Energy--->")
+plt.ylabel("$u(r)$--->")
+plt.legend()
+plt.show()
 
     
-# M=1000
-# E0=-V10*0.5
-# e=(0-E0)/M
-# for i in range(M):
-#     E=E0+e*i
-#     k1=np.sqrt(2*m*(-E))/h
-#     u10=A*k1
-#     WF_r=U(0.1*a,10*a,0,u10,E,V1)[2][-1]
-#     if WF_r<1:
-#         print("Eigenvalue using shooting method is",E/MeV)
-#         break
-#     else:
-#         continue 
+M=1000
+E0=-V10*0.5
+e=(0-E0)/M
+for i in range(M):
+    E=E0+e*i
+    k1=np.sqrt(2*m*(-E))/h
+    u10=A*k1
+    WF_r=U(0.1*a,10*a,0,u10,E,V1)[2][-1]
+    if WF_r<1:
+        print("Eigenvalue using shooting method is",E/MeV)
+        break
+    else:
+        continue 
 
 
 
